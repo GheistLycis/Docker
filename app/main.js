@@ -10,7 +10,7 @@ const db_conn = mysql.createConnection({
   password: DB_PWD,
   database: DB_NAME
 })
-const db_names = []
+let db_names = []
 
 db_conn.connect(err => {
   if(err) {
@@ -21,19 +21,31 @@ db_conn.connect(err => {
     return
   } 
 
-  db_conn.query("INSERT INTO people(name) VALUES('Bruno')")
   db_conn.query(
-    'SELECT name FROM people', 
-    (_, res) => db_names.push(...res.map(({ name }) => name))
+    'SELECT name FROM people',
+    (_, res) => db_names = res.map(({ name }) => name)
   )
-  db_conn.end()
 })
 
-app.get('/', (_, res) => res.send(`
-  <h1>Full Cycle Rocks!</h1>
-  <ul>
-    ${db_names.reduce((acc, el) => acc += '<li>' + el + '</li>', '')}
-  </ul>
-`))
+app.get('/', (_, res) => {
+  try {
+    db_conn.query(
+      `INSERT INTO people(name) VALUES ('Bruno ${db_names.length+1}')`, 
+      () => {
+        db_names.push(`Bruno ${db_names.length+1}`)
+
+        res.send(`
+          <h1>Full Cycle Rocks!</h1>
+          <ul>
+            ${db_names.reduce((acc, name) => acc += '<li>' + name + '</li>', '')}
+          </ul>
+        `)
+      }
+    )
+  }
+  catch(err) {
+    res.status(500).send(err)
+  }
+})
 
 app.listen(8080, () => console.log('SERVER UP!'))
