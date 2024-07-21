@@ -1,0 +1,57 @@
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: brunocapitelli/nginx
+    ports:
+      - "8080:8080"
+    networks: 
+      - shared
+    depends_on:
+      - app
+
+  app:
+    container_name: app
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+      args:
+        DB_PORT: ${DB_PORT}
+    image: brunocapitelli/app
+    environment:
+      DB_CONTAINER_NAME: ${DB_CONTAINER_NAME}
+      DB_USER: ${DB_USER}
+      DB_PWD: ${DB_PWD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+    networks: 
+      - shared
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    container_name: ${DB_CONTAINER_NAME}
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    image: brunocapitelli/database
+    environment:
+      DB_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PWD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+    networks: 
+      - shared
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p${DB_PWD} --silent"]
+      retries: 5
+      interval: 2s
+      timeout: 2s
+      start_period: 5s
+
+networks:
+  shared:
+    driver: bridge

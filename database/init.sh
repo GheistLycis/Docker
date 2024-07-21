@@ -1,0 +1,12 @@
+#!/bin/bash
+
+mysql -u $DB_USER -p$MYSQL_ROOT_PASSWORD -e "
+CREATE DATABASE ${DB_NAME};
+
+USE ${DB_NAME};
+
+CREATE TABLE people (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(256)
+);
+"
