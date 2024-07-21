@@ -1,4 +1,4 @@
-# Full Cycle - Docker - Node.js + Nginx
+# Full Cycle - Docker - MySQL + Node.js + Nginx
 Desafio 2 do curso Full Cycle 3.0, módulo Docker.
 
 <hr>
