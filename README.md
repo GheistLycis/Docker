@@ -10,6 +10,6 @@ Apenas execute `docker compose up`. Acesse http://localhost:8080 em seu navegado
 ```HTML
 <h1>Full Cycle Rocks!</h1>
 <ul>
-  <li>Bruno</li>
+  <li>Bruno 1</li>
 </ul>
 ```
