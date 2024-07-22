@@ -5,11 +5,21 @@ Desafio 2 do curso Full Cycle 3.0, módulo Docker.
 
 ## Como executar
 
-Apenas execute `docker compose up`. Acesse http://localhost:8080 em seu navegador e você deverá ver:
+Para rodar o projeto, apenas execute `docker compose up`. 
 
+Acesse http://localhost:8080 em seu navegador e você deverá ver:
 ```HTML
 <h1>Full Cycle Rocks!</h1>
 <ul>
   <li>Bruno 1</li>
+</ul>
+```
+
+Dê um refresh na página e você deverá ver:
+```HTML
+<h1>Full Cycle Rocks!</h1>
+<ul>
+  <li>Bruno 1</li>
+  <li>Bruno 2</li>
 </ul>
 ```
