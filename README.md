@@ -1,8 +1,13 @@
-# Full Cycle - Docker - Go
-Desafio 1 do curso Full Cycle 3.0, módulo Docker.
+# Node.js + Nginx + MySQL
+```
+docker compose up
+```
 
-``
+
+
+# Go
+```
 docker run brunocapitelli/fullcycle
-``
+```
 
 - Docker  Hub: https://hub.docker.com/repository/docker/brunocapitelli/fullcycle
